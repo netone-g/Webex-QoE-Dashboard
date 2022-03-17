@@ -1,0 +1,21 @@
+image: python:3.9-slim
+
+stages:
+  - lint
+
+flake8:
+  stage: lint
+  image: python:3.9-slim
+  before_script:
+    - pip install flake8
+  script:
+    - flake8 webexdev-*
+
+stylelint:
+  stage: lint
+  image: node:17.7.1-slim
+  before_script:
+    - npm install --save-dev stylelint stylelint-config-standard
+  script:
+    - npx stylelint s3-files/*.css
+  allow_failure: true
